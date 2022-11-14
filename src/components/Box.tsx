@@ -8,7 +8,7 @@ interface BoxProps extends BoxBaseProps{
 const Box: React.FC<BoxProps> = ({ children, ...rest }) => {
   return (
     <BoxBase
-      height="4xl"
+      height="lg"
       width='8xl'
       bgColor='white'
       borderRadius='2xl'
