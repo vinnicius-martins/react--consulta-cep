@@ -8,7 +8,7 @@ interface BackgroundProps extends CenterProps {
 const Background: React.FC<BackgroundProps> = ({ children, ...rest }) => {
   return (
     <Center
-    minHeight='100vh'
+    height='100vh'
     bgColor='#EAF0FB'
     {...rest}
     >
