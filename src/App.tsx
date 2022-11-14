@@ -32,14 +32,6 @@ export default function App() {
     }
   }, [cep])
 
-  function handleCepChange(value: string) {
-    // const lastChar = value.slice(-1)
-    // console.log(lastChar)
-    // if (isNaN(Number(lastChar))) return
-
-    setCep(value)
-  }
-
   return (
     <Background>
       <Box>
@@ -52,7 +44,7 @@ export default function App() {
             label='CEP'
             placeholder='Ex: 12345-678'
             value={cep}
-            onChange={e => handleCepChange(e.target.value)}
+            onChange={e => setCep(e.target.value)}
             mask="99999-999"
           />
           <DisplayData data={data}/>
