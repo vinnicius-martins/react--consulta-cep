@@ -8,7 +8,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <ChakraProvider>
+    <ChakraProvider resetCSS>
       <App />
     </ChakraProvider>
   </React.StrictMode>
