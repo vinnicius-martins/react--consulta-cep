@@ -1,26 +1,63 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { HStack, StackDivider } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import Background from './components/Background';
+import Box from './components/Box';
+import Input from './components/Input';
+import DisplayData, { DataType } from './components/DisplayData';
 
-function App() {
+export default function App() {
+
+  const [cep, setCep] = useState('')
+  const [data, setData] = useState<DataType>({} as DataType)
+
+  useEffect(() => {
+    async function getCepData() {
+      try {
+        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const responseData = await response.json()
+        console.log(responseData)
+        setData(responseData);
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    const cleanText = cep.replace(/\D/g, '');
+    const cepValidation = /^[0-9]{8}$/;
+
+    if (cepValidation.test(cleanText)) {
+      getCepData()
+    } else {
+      setData({} as DataType)
+    }
+  }, [cep])
+
+  function handleCepChange(value: string) {
+    // const lastChar = value.slice(-1)
+    // console.log(lastChar)
+    // if (isNaN(Number(lastChar))) return
+
+    setCep(value)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Background>
+      <Box>
+        <HStack
+        divider={<StackDivider borderColor='gray.200'/>}
+        height='inherit'
+        justify='space-evenly'
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <Input
+            label='CEP'
+            placeholder='Ex: 12345-678'
+            value={cep}
+            onChange={e => handleCepChange(e.target.value)}
+            mask="99999-999"
+          />
+          <DisplayData data={data}/>
+        </HStack>
+      </Box>
+    </Background>
   );
 }
-
-export default App;
