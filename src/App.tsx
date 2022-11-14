@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import './styles/global.css'
 
 import { HStack, StackDivider } from '@chakra-ui/react';
 import Background from './components/Background';
